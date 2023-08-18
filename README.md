@@ -1,3 +1,13 @@
+The description has been written in Polish and English.
+
+
+
+
+
+
+
+POLISH:
+
 Pseudojęzyk HGuiScript w Aplikacji HTA
 Pseudojęzyk HGuiScript umożliwia sterowanie zachowaniem i wyglądem aplikacji w środowisku HTML APPLICATION. Język został zaprojektowany i zaprogramowany w JavaScripcie. Poniżej znajduje się lista dostępnych funkcji wraz z ich opisami.
 
