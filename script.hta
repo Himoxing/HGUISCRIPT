@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gui PseudoLang Script</title>
+  <hta:application
+    id="Gui PseudoLang Script"
+    applicationname="Gui PseudoLang Script"
+    version="1.0"
+  />
+   <script type="text/javascript">
+    function addTextToButton(text) {
+      var newButton = document.createElement("button");
+      newButton.textContent = text;
+      var appBody = document.getElementById("appBody");
+      appBody.appendChild(newButton);
+      appBody.appendChild(document.createElement("br"));
+    }
+
+    function executeCommands() {
+      var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+      var file = fileSystem.OpenTextFile("script.txt", 1, false);
+      while (!file.AtEndOfStream) {
+        var line = file.ReadLine();
+        processCommand(line);
+      }
+      file.Close();
+    }
+
+    function processCommand(line) {
+      var command = line.replace(/^\s+|\s+$/g, ''); // Usunięcie białych znaków na początku i końcu
+
+      if (command.indexOf("#button-text") === 0) {
+        var buttonText = command.substring(12);
+        addTextToButton(buttonText);
+      }
+    }
+
+    function initApp() {
+      executeCommands();
+    }
+  </script>
+    <script type="text/javascript">
+    var backgroundColor = "white";
+    var textColor = "black";
+
+    function executeCodeFromFile(fileName) {
+      var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+      var file = fileSystem.OpenTextFile(fileName, 1, false);
+      var lines = [];
+      while (!file.AtEndOfStream) {
+        lines.push(file.ReadLine());
+      }
+      file.Close();
+
+      for (var i = 0; i < lines.length; i++) {
+        processCommand(lines[i]);
+      }
+    }
+
+function processCommand(line) {
+  var command = line.replace(/^\s+|\s+$/g, ''); // Usunięcie białych znaków na początku i końcu
+
+  if (command.indexOf("#text") === 0) {
+    var text = command.substring(6).replace(/^\s+|\s+$/g, '');
+    addTextToApp(text);
+  } else if (command.indexOf("#bg-color") === 0) {
+    backgroundColor = command.substring(9).replace(/^\s+|\s+$/g, '');
+    document.body.style.backgroundColor = backgroundColor;
+  } else if (command.indexOf("#text-color") === 0) {
+    textColor = command.substring(11).replace(/^\s+|\s+$/g, '');
+    document.body.style.color = textColor;
+  } else if (command.indexOf("#button") === 0) {
+    addButtonToApp();
+  } else if (command.indexOf("#button-text") === 0) {
+    var buttonText = command.substring(12).replace(/^\s+|\s+$/g, '');
+    addTextToButton(buttonText);
+  }
+}
+
+
+
+     function addTextToButton(text) {
+      var newButton = document.createElement("button");
+      newButton.textContent = text;
+      var appBody = document.getElementById("appBody");
+      appBody.appendChild(newButton);
+      appBody.appendChild(document.createElement("br"));
+    }
+
+    function addTextToApp(text) {
+      var newText = document.createTextNode(text);
+      var appBody = document.getElementById("appBody");
+      appBody.appendChild(newText);
+      appBody.appendChild(document.createElement("br"));
+    }
+
+    function addButtonToApp() {
+      var newButton = document.createElement("button");
+      newButton.textContent = "Nowy przycisk";
+      var appBody = document.getElementById("appBody");
+      appBody.appendChild(newButton);
+      appBody.appendChild(document.createElement("br"));
+    }
+
+    function initApp() {
+      var scriptFileName = "script.txt";
+
+      try {
+        executeCodeFromFile(scriptFileName);
+      } catch (e) {
+        alert("Wystąpił błąd: " + e.message);
+      }
+    }
+  </script>
+</head>
+<body onload="initApp()">
+  <h1>Gui PseudoLang Script</h1>
+  <div id="appBody"></div>
+</body>
+</html>
